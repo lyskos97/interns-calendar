@@ -1,0 +1,42 @@
+.month {
+  margin-bottom: 20px;
+  color: #333;
+  width: calc(14em + 2px);
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px 0;
+  .week_header {
+    display: flex;
+    background: #999;
+    padding: 5px 0;
+    margin: 3px 0;
+    button {
+      flex-basis: 2em;
+      font-weight: bold;
+      outline: none;
+    }
+  }
+  .days {
+    display: flex;
+    flex-wrap: wrap;
+    background: #b3b3b3;
+    .day {
+      flex-basis: 2em;
+      padding: 8px 0;
+      outline: none;
+      background: #ccc;
+      &:hover {
+        background: #a6a6a6;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    }
+    .day_empty {
+      flex-basis: 2em;
+      padding: 8px 0;
+      outline: none;
+      background: #b3b3b3
+      ;
+    }
+  }
+}

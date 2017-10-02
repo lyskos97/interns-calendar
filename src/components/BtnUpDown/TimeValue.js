@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Input.scss';
+import s from './BtnUpDown.scss';
 
 export default function TimeValue(props) {
   return (

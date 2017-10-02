@@ -5,50 +5,50 @@
   background: none;
   border: none;
   font-size: 1em;
+  color: #333;
+  font-family: monospace;
 }
 
 #app {
-  width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   text-align: center;
-}
-
-#calendar {
-  background: #ccc;
-  padding: 1.1em;
-}
-
-#clock {
-  margin: auto;
   display: flex;
-  width: 15em;
-  background: #f7f7f7;
-  padding: 5px;
-}
-
-.cell {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.btn {
-  width: 5em;
-  height: 5em;
-  border-radius: 4px;
+.month {
+  width: 14em;
+  padding: 5px;
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+.title {
+  padding: .5em;
+}
+
+.weekHeader, .day {
+  padding: 0.5em 0;
+}
+
+.days, .weekHeader {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.weekHeader {
+  background: #f1f1f1;
+  font-weight: bold;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 
-.btn:last-child {
-  margin: 0;
+.day, .day_name {
+  width: 2em;
 }
 
-.btn span, .cell span {
-  font-size: 1.5em;
-}
-
-.btn:hover {
-  background: #ccc;  
+.day:hover, .title:hover {
+  background: #ccc;
+  cursor: pointer;
+  border-radius: 2px;
 }
