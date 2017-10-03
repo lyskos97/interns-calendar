@@ -8,11 +8,11 @@ import DateField from './../TextField/TextField';
 export default class DateTimePicker extends React.Component {
   constructor() {
     super();
-    console.log('date==>', new Date());
     this.state = {
-      date: new Date(),
+      date: new Date(1997, 10, 9),
       clockBtnPressed: false,
     };
+    console.log('The Date:', this.state.date);
   }
 
   increaseHours() {

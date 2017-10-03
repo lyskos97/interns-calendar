@@ -35,8 +35,18 @@
       flex-basis: 2em;
       padding: 8px 0;
       outline: none;
-      background: #b3b3b3
-      ;
+      background: #b3b3b3;
+    }
+    .day_selected {
+      border: 1px solid #333;
+      flex-basis: 2em;
+      padding: 8px 0;
+      outline: none;
+      cursor: pointer;
+      background: #999;
+      &:hover {
+        border: 1px solid #fff;
+      }
     }
   }
 }

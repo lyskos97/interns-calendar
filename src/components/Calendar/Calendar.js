@@ -11,7 +11,7 @@ export default class Calendar extends React.Component {
     daysOfTheWeek.forEach((el, i) => {
       weekJsx.push(<button key={i}>{el}</button>);
     });
-    /* Kek */
+    /* Handle month detection */
     const allMonths = [
       'January',
       'February',
@@ -33,15 +33,25 @@ export default class Calendar extends React.Component {
     for (let it = 0; it < firstDay; it++) {
       daysJsx[it] = <div className={s.day_empty}>{null}</div>;
     }
-    console.log(monthStart);
-    // daysJsx.fill(<div className={s.day}>{null}</div>);
-    console.log(firstDay);
+    console.log('Months first day of the week ==>', firstDay);
     daysArr.forEach((el, i) => {
-      daysJsx.push(
-        <button className={s.day} key={i}>
-          {el.getDate()}
-        </button>
-      );
+      if (
+        el.getFullYear() === d.getFullYear() &&
+        el.getMonth() === d.getMonth() &&
+        el.getDate() === d.getDate()
+      ) {
+        daysJsx.push(
+          <button className={s.day_selected} key={daysJsx[daysJsx.length]}>
+            {el.getDate()}
+          </button>
+        );
+      } else {
+        daysJsx.push(
+          <button className={s.day} key={i}>
+            {el.getDate()}
+          </button>
+        );
+      }
     });
     return (
       <div className={s.month}>
