@@ -2,115 +2,86 @@ import React from 'react';
 import s from './DateTimePicker.scss';
 import Clock from './../Clock/Clock';
 import Calendar from './../Calendar/Calendar';
-import DateField from './../TextField/TextField';
-// import { format } from 'date-fns';
+import df from 'date-fns';
 
 export default class DateTimePicker extends React.Component {
   constructor() {
     super();
     this.state = {
-      date: new Date(1997, 10, 9),
-      clockBtnPressed: false,
+      date: new Date(),
+      showCalendar: false,
+      showClock: false,
     };
     console.log('The Date:', this.state.date);
   }
 
-  increaseHours() {
-    const tmpDate = this.state.date;
-    tmpDate.setHours(tmpDate.getHours() + 1);
-    this.setState({ tmpDate });
-  }
+  onChangeHH = val => {
+    const newDate = df.setHours(this.state.date, val);
+    this.setState({ date: newDate });
+  };
 
-  decreaseHours() {
-    const tmpDate = this.state.date;
-    tmpDate.setHours(tmpDate.getHours() - 1);
-    this.setState({ tmpDate });
-  }
+  onChangeMM = val => {
+    const newDate = df.setMinutes(this.state.date, val);
+    this.setState({ date: newDate });
+  };
 
-  increaseMinutes() {
-    const tmpDate = this.state.date;
-    tmpDate.setMinutes(tmpDate.getMinutes() + 1);
-    this.setState({ tmpDate });
-  }
+  handleDayClick = day => {
+    const date = df.setDate(this.state.date, day);
+    this.setState({ date: date });
+  };
 
-  decreaseMinutes() {
-    const tmpDate = this.state.date;
-    tmpDate.setMinutes(tmpDate.getMinutes() - 1);
-    this.setState({ tmpDate });
-  }
-
-  increaseHoursOnHold() {
-    this.increaseHours();
-    if (!this.state.clockBtnPressed) {
-      this.pressDelay = setTimeout(() => {
-        console.log('Holding the button');
-        this.repeatOnHold = setInterval(() => {
-          this.setState({ clockBtnPressed: true });
-          this.increaseHours();
-        }, 100);
-      }, 500);
+  handleTextFieldClick = () => {
+    if (!this.state.showClock) {
+      this.setState({ showCalendar: !this.state.showCalendar });
+    } else {
+      this.setState({ showClock: !this.state.showClock });
     }
-  }
+  };
 
-  decreaseHoursOnHold() {
-    this.decreaseHours();
-    if (!this.state.clockBtnPressed) {
-      this.pressDelay = setTimeout(() => {
-        console.log('Holding the button');
-        this.repeatOnHold = setInterval(() => {
-          this.setState({ clockBtnPressed: true });
-          this.decreaseHours();
-        }, 100);
-      }, 500);
-    }
-  }
+  handleClockBtnClick = () => {
+    this.setState({ showCalendar: !this.state.showCalendar, showClock: !this.state.showClock });
+    console.log('kek');
+  };
 
-  increaseMinutesOnHold() {
-    this.increaseMinutes();
-    if (!this.state.clockBtnPressed) {
-      this.pressDelay = setTimeout(() => {
-        console.log('Holding the button');
-        this.repeatOnHold = setInterval(() => {
-          this.setState({ clockBtnPressed: true });
-          this.increaseMinutes();
-        }, 60);
-      }, 500);
-    }
-  }
+  switchToNextMonth = () => {
+    const { date } = this.state;
+    const newDate = df.setMonth(date, date.getMonth() + 1);
+    this.setState({ date: newDate });
+  };
 
-  decreaseMinutesOnHold() {
-    this.decreaseMinutes();
-    if (!this.state.clockBtnPressed) {
-      this.pressDelay = setTimeout(() => {
-        console.log('Holding the button');
-        this.repeatOnHold = setInterval(() => {
-          this.setState({ clockBtnPressed: true });
-          this.decreaseMinutes();
-        }, 60);
-      }, 500);
-    }
-  }
-
-  holdStop() {
-    this.setState({ clockBtnPressed: false });
-    clearInterval(this.repeatOnHold);
-    clearTimeout(this.pressDelay);
-    console.log('Stopped holding');
-  }
+  switchToPreviousMonth = () => {
+    const { date } = this.state;
+    const newDate = df.setMonth(date, date.getMonth() - 1);
+    this.setState({ date: newDate });
+  };
 
   render() {
+    const { showCalendar, showClock } = this.state;
     return (
       <div className={s.date_picker}>
-        <DateField date={this.state.date} />
-        <Calendar date={this.state.date} />
-        <Clock
-          increaseHoursOnHold={() => this.increaseHoursOnHold()}
-          decreaseHoursOnHold={() => this.decreaseHoursOnHold()}
-          increaseMinutesOnHold={() => this.increaseMinutesOnHold()}
-          decreaseMinutesOnHold={() => this.decreaseMinutesOnHold()}
-          holdStop={() => this.holdStop()}
-          date={this.state.date}
+        <input
+          type="text"
+          className={s.date_field}
+          value={df.format(this.state.date, 'HH:mm, dddd DD MMMM YYYY')}
+          onClick={this.handleTextFieldClick}
         />
+        {showCalendar && (
+          <Calendar
+            date={this.state.date}
+            switchToNextMonth={this.switchToNextMonth}
+            switchToPreviousMonth={this.switchToPreviousMonth}
+            handleDayClick={this.handleDayClick}
+            handleClockBtnClick={this.handleClockBtnClick}
+          />
+        )}
+        {showClock && (
+          <Clock
+            onChangeHH={this.onChangeHH}
+            handleClockBtnClick={this.handleClockBtnClick}
+            onChangeMM={this.onChangeMM}
+            date={this.state.date}
+          />
+        )}
       </div>
     );
   }

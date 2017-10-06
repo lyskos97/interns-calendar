@@ -8,19 +8,26 @@ export default class Clock extends React.Component {
   render() {
     return (
       <div className={s.clock}>
-        <UpDownControl
-          val={df.format(this.props.date, 'HH')}
-          increaseOnHold={() => this.props.increaseHoursOnHold()}
-          decreaseOnHold={() => this.props.decreaseHoursOnHold()}
-          holdStop={() => this.props.holdStop()}
-        />
-        <div className={ss.cell}>:</div>
-        <UpDownControl
-          val={df.format(this.props.date, 'mm')}
-          increaseOnHold={() => this.props.increaseMinutesOnHold()}
-          decreaseOnHold={() => this.props.decreaseMinutesOnHold()}
-          holdStop={() => this.props.holdStop()}
-        />
+        <button className={s.switcher} onClick={this.props.handleClockBtnClick}>
+          <i className={'fa fa-calendar'} />
+        </button>
+        <div className={s.clock_controls}>
+          <UpDownControl
+            value={this.props.date.getHours()}
+            min={0}
+            max={23}
+            onChange={this.props.onChangeHH}
+            cycle
+          />
+          <div className={ss.cell}>:</div>
+          <UpDownControl
+            value={this.props.date.getMinutes()}
+            min={0}
+            max={59}
+            onChange={this.props.onChangeMM}
+            cycle
+          />
+        </div>
       </div>
     );
   }

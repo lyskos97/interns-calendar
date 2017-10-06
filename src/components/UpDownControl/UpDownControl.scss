@@ -7,4 +7,22 @@
   &:nth-child(2) {
     font-size: 2em;
   }
+  .btn {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: .5em;
+    &:last-child {
+      margin: 0;
+    }
+    &:hover {
+      background: #ccc;
+    }
+    span {
+      font-size: 1.3em;
+    }
+  }
+  
 }

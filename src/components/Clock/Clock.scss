@@ -1,8 +1,22 @@
-.clock {
+.clock{
   display: flex;
-  justify-content: space-around;
-  width: 12.5em;
+  flex-direction: column;
   background: #f7f7f7;
-  padding: .4em;
-  border: 1px solid #ccc
+  border: 1px solid #ccc;
+  .clock_controls {
+    display: flex;
+    justify-content: space-around;
+    width: 14em;
+    padding: .4em;
+  }
+  .switcher {
+    outline: none;
+    align-self: stretch;
+    padding: 10px;
+    &:hover {
+      background: #ccc;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
 }

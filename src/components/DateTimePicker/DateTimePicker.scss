@@ -1,7 +1,19 @@
+@import url(https://fonts.google.com/?selection.family=Lato|Raleway);
+* {
+  font-family: 'Lato', sans-serif;
+}
+
 .date_picker {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 50px;
+  .date_field {
+    width: 21em;
+    padding: .5em;
+    border-radius: 4px;
+    border: 1px solid #777;
+    margin-bottom: 20px;
+  }
 }
